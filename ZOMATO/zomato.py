@@ -1,4 +1,5 @@
 import json
+from tabulate import tabulate
 
 menu = []
 orders = []
@@ -38,11 +39,14 @@ def update_dish_availability(dish_id, availability):
     print()
 
 def display_menu():
-    print("Current Menu:")
-    print("-------------")
+    table_data = []
     for dish in menu:
         availability = "Available" if dish['availability'] else "Not available"
-        print(f"{dish['dish_id']}. {dish['dish_name']} - ${dish['price']} - {availability}")
+        table_data.append([dish['dish_id'], dish['dish_name'], dish['price'], availability])
+
+    headers = ["Dish ID", "Dish Name", "Price", "Availability"]
+    print("Current Menu:")
+    print(tabulate(table_data, headers, tablefmt="grid"))
     print()
 
 def search_dish_by_name(dish_name):
@@ -51,10 +55,14 @@ def search_dish_by_name(dish_name):
         if dish['dish_name'].lower() == dish_name.lower():
             found_dishes.append(dish)
     if found_dishes:
-        print(f"Found {len(found_dishes)} dishes with the name '{dish_name}':")
+        table_data = []
         for found_dish in found_dishes:
             availability = "Available" if found_dish['availability'] else "Not available"
-            print(f"{found_dish['dish_id']}. {found_dish['dish_name']} - ${found_dish['price']} - {availability}")
+            table_data.append([found_dish['dish_id'], found_dish['dish_name'], found_dish['price'], availability])
+
+        headers = ["Dish ID", "Dish Name", "Price", "Availability"]
+        print(f"Found {len(found_dishes)} dishes with the name '{dish_name}':")
+        print(tabulate(table_data, headers, tablefmt="grid"))
     else:
         print(f"No dishes found with the name '{dish_name}'.")
     print()
@@ -88,23 +96,31 @@ def update_order_status(order_id, status):
     for order in orders:
         if order['order_id'] == order_id:
             order['status'] = status
-            print(f"Updated status of Order {order_id} to '{status}'.")
+            print(f"Order {order_id} status updated: {status}")
             print()
             return
     print(f"No order found with ID {order_id}.")
     print()
 
 def display_orders(status_filter=None):
-    print("Current Orders:")
-    print("---------------")
-    for order in orders:
-        if status_filter is None or order['status'].lower() == status_filter.lower():
-            print(f"Order {order['order_id']}: {order['customer_name']} - {order['status']}")
-            print("Dishes:")
-            for dish in order['dishes']:
-                print(f"- {dish['dish_name']} - ${dish['price']}")
-            print(f"Total Price: ${order['total_price']}")
-            print()
+    if status_filter:
+        filtered_orders = [order for order in orders if order['status'].lower() == status_filter.lower()]
+    else:
+        filtered_orders = orders
+
+    if filtered_orders:
+        table_data = []
+        for order in filtered_orders:
+            dishes = ", ".join(dish['dish_name'] for dish in order['dishes'])
+            table_data.append([order['order_id'], order['customer_name'], dishes, order['status'], order['total_price']])
+
+        headers = ["Order ID", "Customer Name", "Dishes", "Status", "Total Price"]
+        print("Order Details:")
+        print(tabulate(table_data, headers, tablefmt="grid"))
+        print()
+    else:
+        print("No orders found.")
+        print()
 
 def calculate_total_revenue():
     total_revenue = sum(order['total_price'] for order in orders)
@@ -131,7 +147,7 @@ def load_data(filename):
             orders = data['orders']
         print("Data loaded successfully.")
     except FileNotFoundError:
-        print("No existing data found. Starting with empty menu and orders.")
+        print("No existing data found. Starting with an empty menu and orders.")
     print()
 
 def validate_input(input_text, valid_choices):
@@ -174,10 +190,10 @@ while True:
         update_dish_availability(dish_id, availability)
     elif choice == '4':
         customer_name = input("Enter the customer name: ")
-        dish_ids = input("Enter the dish IDs (separated by commas): ").split(',')
+        dish_ids = input("Enter the dish IDs (comma-separated): ").split(',')
         take_order(customer_name, dish_ids)
     elif choice == '5':
-        order_id = int(input("Enter the order ID: "))
+        order_id = int(input("Enter the order ID to update status: "))
         status = input("Enter the new status: ")
         update_order_status(order_id, status)
     elif choice == '6':
