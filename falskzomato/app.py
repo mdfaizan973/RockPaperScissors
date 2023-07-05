@@ -1,9 +1,11 @@
 from flask import Flask, jsonify, request
 import pickle
+from flask import Flask
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
-# Load menu from file
 def load_menu():
     try:
         with open('menu.pickle', 'rb') as f:
