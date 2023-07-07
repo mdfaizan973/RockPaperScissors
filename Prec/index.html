@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <link
+      rel="Website Icon"
+      type="png"
+      href="https://media.istockphoto.com/id/1279654034/photo/studio-microphone-and-pop-shield-on-mic-in-the-empty-recording-studio-with-copy-space.jpg?s=612x612&w=0&k=20&c=hoYDQnNkbwHr4fXKz1eRyxTAXwGZeNvBEKBLqpX-DLg="
+    />
+    <title>Website Icon</title>
+    <style>
+      /* Styles for the main container */
+      .container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+      }
+
+      /* Styles for the record button */
+      .record-btn {
+        display: inline-block;
+        background-color: #f44336;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      /* Styles for the audio player */
+      .audio-player {
+        display: none;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Voice Capture Application</h1>
+      <button class="record-btn" id="recordBtn">Record</button>
+      <audio class="audio-player" id="audioPlayer" controls></audio>
+      <ul id="recordingsList"></ul>
+    </div>
+  </body>
+</html>
+<!-- <script>
+  window.addEventListener("DOMContentLoaded", function () {
+    // Check if the browser supports the Web Audio API
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      var recordBtn = document.getElementById("recordBtn");
+      var audioPlayer = document.getElementById("audioPlayer");
+      var downloadBtn = document.getElementById("downloadBtn");
+      var recordingsList = document.getElementById("recordingsList");
+
+      var constraints = { audio: true };
+      var chunks = [];
+      var recordings = []; // Array to store recorded voices
+
+      // Record button click event handler
+      recordBtn.addEventListener("click", function () {
+        if (recordBtn.textContent === "Record") {
+          // Start recording
+          navigator.mediaDevices
+            .getUserMedia(constraints)
+            .then(function (stream) {
+              mediaRecorder = new MediaRecorder(stream);
+
+              mediaRecorder.addEventListener("dataavailable", function (e) {
+                chunks.push(e.data);
+              });
+
+              mediaRecorder.addEventListener("stop", function () {
+                var blob = new Blob(chunks, { type: "audio/wav" });
+                chunks = [];
+                audioPlayer.src = URL.createObjectURL(blob);
+                audioPlayer.style.display = "block";
+
+                // Add captured audio to the recordings array
+                recordings.push(blob);
+
+                // Store captured audio in local storage
+                localStorage.setItem("recordings", JSON.stringify(recordings));
+
+                // Enable download button
+                downloadBtn.style.display = "inline-block";
+                downloadBtn.href = URL.createObjectURL(blob);
+
+                // Display the recordings list
+                displayRecordingsList();
+              });
+
+              mediaRecorder.start();
+              recordBtn.textContent = "Stop";
+            })
+            .catch(function (err) {
+              console.error("Error accessing microphone:", err);
+            });
+        } else {
+          // Stop recording
+          mediaRecorder.stop();
+          recordBtn.textContent = "Record";
+        }
+      });
+
+      // Display the recordings list
+      function displayRecordingsList() {
+        recordingsList.innerHTML = "";
+        for (var i = 0; i < recordings.length; i++) {
+          var listItem = document.createElement("li");
+          var audio = document.createElement("audio");
+          audio.src = URL.createObjectURL(recordings[i]);
+          audio.controls = true;
+          listItem.appendChild(audio);
+          recordingsList.appendChild(listItem);
+        }
+      }
+
+      // Check if there are any previously recorded voices in local storage
+      var storedRecordings = localStorage.getItem("recordings");
+      if (storedRecordings) {
+        recordings = JSON.parse(storedRecordings);
+        displayRecordingsList();
+      }
+    } else {
+      console.error("Web Audio API is not supported in this browser.");
+    }
+  });
+</script> -->
+
+<script>
+  window.addEventListener("DOMContentLoaded", function () {
+    var recordBtn = document.getElementById("recordBtn");
+    var audioPlayer = document.getElementById("audioPlayer");
+    var downloadBtn = document.getElementById("downloadBtn");
+    var recordingsList = document.getElementById("recordingsList");
+
+    var constraints = { audio: true };
+    var chunks = [];
+    var recordings = [];
+
+    // Record button click event handler
+    recordBtn.addEventListener("click", function () {
+      if (recordBtn.textContent === "Record") {
+        // Start recording
+        navigator.mediaDevices
+          .getUserMedia(constraints)
+          .then(function (stream) {
+            mediaRecorder = new MediaRecorder(stream);
+
+            mediaRecorder.addEventListener("dataavailable", function (e) {
+              chunks.push(e.data);
+            });
+
+            mediaRecorder.addEventListener("stop", function () {
+              var blob = new Blob(chunks, { type: "audio/wav" });
+              chunks = [];
+              audioPlayer.src = URL.createObjectURL(blob);
+              audioPlayer.style.display = "block";
+
+              // Add captured audio to the recordings array
+              recordings.push(blob);
+
+              // Display the recordings list
+              displayRecordingsList();
+            });
+
+            mediaRecorder.start();
+            recordBtn.textContent = "Stop";
+          })
+          .catch(function (err) {
+            console.error("Error accessing microphone:", err);
+          });
+      } else {
+        // Stop recording
+        mediaRecorder.stop();
+        recordBtn.textContent = "Record";
+      }
+    });
+
+    // Display the recordings list
+    function displayRecordingsList() {
+      recordingsList.innerHTML = "";
+      for (var i = 0; i < recordings.length; i++) {
+        var listItem = document.createElement("li");
+        var audio = document.createElement("audio");
+        audio.src = URL.createObjectURL(recordings[i]);
+        audio.controls = true;
+        listItem.appendChild(audio);
+        recordingsList.appendChild(listItem);
+      }
+    }
+  });
+</script>
+<!-- //hello -->
