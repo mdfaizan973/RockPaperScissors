@@ -33,7 +33,19 @@ def add_customers():
     return jsonify({'message': 'Customers added successfully', 'ids': inserted_ids})
 
 # ---
+@app.route('/fetch_data', methods=['GET'])
+def fetch_data():
+    data = list(collection.find())
+    return jsonify(data)
 
+# ---
+@app.route('/fetch_customerid', methods=['GET'])
+def fetch_customer():
+    customer = collection.find_one({'id': '33'})
+    if customer:
+        return jsonify(customer)
+    else:
+        return jsonify({'message': 'Customer not found'})
 
 
 if __name__ == '__main__':
