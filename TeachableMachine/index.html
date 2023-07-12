@@ -12,11 +12,13 @@
       <div id="webcam-container"></div>
       <button type="button" id="btn_start" onclick="init()">Start</button>
 
-      <div id="label-container"></div>
+      <div id="label-container">---*---</div>
+      <div id="what-is-this">
+        <img src="https://i.gifer.com/YCZH.gif" alt="" />
+      </div>
 
-      <div id="some_text">Text Should be here</div>
+      <div id="some_text">---*---</div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
     <script type="text/javascript">
@@ -24,7 +26,7 @@
       // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
 
       // the link to your model provided by Teachable Machine export panel
-      const URL = "https://teachablemachine.withgoogle.com/models/cAP-47gTMN/";
+      const URL = "https://teachablemachine.withgoogle.com/models/vaNSqD9Dq/";
 
       let model, webcam, labelContainer, maxPredictions;
 
@@ -72,38 +74,117 @@
             " :- " +
             prediction[i].probability.toFixed(2);
           labelContainer.childNodes[i].innerHTML = classPrediction;
-
-          // condition -------------------------
-          console.log(classPrediction);
           if (
-            prediction[i].probability.toFixed(2) == 1 &&
-            prediction[i].className == "key"
-          ) {
-            document.getElementById("some_text").innerText = "This is key";
-          } else if (
             prediction[i].probability.toFixed(2) == 1 &&
             prediction[i].className == "Mobile"
           ) {
-            document.getElementById("some_text").innerText = "This is Mobile";
+            document.getElementById(
+              "what-is-this"
+            ).innerHTML = `This is ${prediction[i].className}`;
+            document.getElementById(
+              "some_text"
+            ).innerText = `A mobile phone can make phone calls, enable the user to send text messages, play games, take pictures, record videos, provide access to the internet, and much more.`;
           } else if (
             prediction[i].probability.toFixed(2) == 1 &&
-            prediction[i].className == "Bulb"
+            prediction[i].className == "Goggles"
           ) {
-            document.getElementById("some_text").innerText = "This is Bulb";
+            document.getElementById(
+              "what-is-this"
+            ).innerHTML = `This is ${prediction[i].className}`;
+            document.getElementById(
+              "some_text"
+            ).innerText = `Goggles are the primary protectors intended to shield the eyes against liquid or chemical splash, irritating mists, vapors, and fumes. They form a protective seal around the eyes, and prevent objects or liquids from entering under or around the goggles.`;
           } else if (
             prediction[i].probability.toFixed(2) == 1 &&
-            prediction[i].className == "Earphone Case"
+            prediction[i].className == "Computer Mouse"
           ) {
-            document.getElementById("some_text").innerText =
-              "This is Earphone Case";
+            document.getElementById(
+              "what-is-this"
+            ).innerHTML = `This is ${prediction[i].className}`;
+            document.getElementById(
+              "some_text"
+            ).innerText = `A mouse is a small hardware input device used by hand. It controls the movement of the cursor on the computer screen and allows users to move and select folders, text, files, and icons on a computer. It is an object, which needs to put on a hard-flat surface to use.`;
           } else if (
             prediction[i].probability.toFixed(2) == 1 &&
-            prediction[i].className == "Botal"
+            prediction[i].className == "Bulbs"
           ) {
-            document.getElementById("some_text").innerText = "This is bulb";
-          } else {
-            document.getElementById("some_text").innerText =
-              "Nothing is infront of camera";
+            document.getElementById(
+              "what-is-this"
+            ).innerHTML = `This is ${prediction[i].className}`;
+            document.getElementById(
+              "some_text"
+            ).innerText = `The electric light bulb has been called the most important invention since man-made fire. The light bulb helped to establish social order after sundown, extended the workday well into the night, and allowed us to navigate and travel safely in the dark. Without the light bulb, there would be no nightlife.`;
+          } else if (
+            prediction[i].probability.toFixed(2) == 1 &&
+            prediction[i].className == "Bottel"
+          ) {
+            document.getElementById(
+              "what-is-this"
+            ).innerHTML = `This is ${prediction[i].className}`;
+            document.getElementById(
+              "some_text"
+            ).innerText = `A water bottle is a container that is used to hold liquids, mainly water, for the purpose of transporting a drink while travelling or while otherwise away from a supply of potable water., `;
+          } else if (
+            prediction[i].probability.toFixed(2) == 1 &&
+            prediction[i].className == "Cricket Bat"
+          ) {
+            document.getElementById(
+              "what-is-this"
+            ).innerHTML = `This is ${prediction[i].className}`;
+            document.getElementById(
+              "some_text"
+            ).innerText = `A cricket bat is a specialised piece of equipment used by batters in the sport of cricket to hit the ball, typically consisting of a cane handle attached to a flat-fronted willow-wood blade. It may also be used by a batter who is making batter's ground to avoid a run out, by holding the bat and touching the ground with it. The length of the bat may be no more than 38 inches (96.5 cm) and the width no more than 4.25 inches (10.8 cm). Its use is first mentioned in 1624. Since 1979, a law change has provided that cricket bats can only be made from wood.`;
+          } else if (
+            prediction[i].probability.toFixed(2) == 1 &&
+            prediction[i].className == "Jug"
+          ) {
+            document.getElementById(
+              "what-is-this"
+            ).innerHTML = `This is ${prediction[i].className}`;
+            document.getElementById(
+              "some_text"
+            ).innerText = `A jug is a type of container commonly used to hold liquids. It has an opening, sometimes narrow, from which to pour or drink, and has a handle, and often a pouring lip. Jugs throughout history have been made of metal, and ceramic, or glass, and plastic is now common.
+            In British English, jugs are pouring vessels for holding drinkable liquids, whether beer, water or soft drinks. In North American English these table jugs are usually called pitchers. Ewer is an older word for jugs or pitchers, and there are several others.`;
+          } else if (
+            prediction[i].probability.toFixed(2) == 1 &&
+            prediction[i].className == "Human"
+          ) {
+            document.getElementById(
+              "what-is-this"
+            ).innerHTML = `This is ${prediction[i].className}`;
+            document.getElementById(
+              "some_text"
+            ).innerText = `Human was first recorded in the mid 13th century, and owes its existence to the Middle French humain “of or belonging to man.” That word, in turn, comes from the Latin humanus, thought to be a hybrid relative of homo, meaning “man,” and humus, meaning “earth.” Thus, a human, unlike birds, planes, or even divine spirits ...`;
+          } else if (
+            prediction[i].probability.toFixed(2) == 1 &&
+            prediction[i].className == "Blank Place"
+          ) {
+            document.getElementById(
+              "what-is-this"
+            ).innerHTML = `This is ${prediction[i].className}`;
+            document.getElementById(
+              "some_text"
+            ).innerText = `There are nothing it's blacnk place`;
+          } else if (
+            prediction[i].probability.toFixed(2) == 1 &&
+            prediction[i].className == "Wire"
+          ) {
+            document.getElementById(
+              "what-is-this"
+            ).innerHTML = `This is ${prediction[i].className}`;
+            document.getElementById(
+              "some_text"
+            ).innerText = `A single electrical conductor or a single channel that can carry electricity is called a wire. The conductor part of the wire is made up of copper or aluminum or copper-sheathed aluminum wrapped inside a non-conductive coating of plastic.`;
+          } else if (
+            prediction[i].probability.toFixed(2) == 1 &&
+            prediction[i].className == "Fan"
+          ) {
+            document.getElementById(
+              "what-is-this"
+            ).innerHTML = `This is ${prediction[i].className}`;
+            document.getElementById(
+              "some_text"
+            ).innerText = `Electric fans have a motor that turns a shaft on which there is an impeller. The turning impeller creates air pressure, causing air flow. If the fan moves air in the same direction as its shaft, it is axial flow. Propeller fans are axial flow.`;
           }
         }
       }
