@@ -1,7 +1,8 @@
-<h2>Counter</h2>
-<p>Current Count: {{ count }}</p>
+<div id="container">
+  <h2><span>☆*: .｡. o(≧</span> Counter <span>≦)o .｡.:*☆</span></h2>
+  <hr />
+  <h4>Current Count :- {{ count }}</h4>
 
-<button (click)="increment()">Increment</button>
-<button (click)="decrement()">Decrement</button>
-
-<!-- increment(): void { this.count++; } decrement(): void { this.count--; } -->
+  <button (click)="increment()" [disabled]="count >= 10">Increment</button>
+  <button (click)="decrement()" [disabled]="count <= 0">Decrement</button>
+</div>

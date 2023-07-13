@@ -1,0 +1,24 @@
+#heading {
+  width: 50%;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 20px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  background-color: #ffffff;
+}
+h1 {
+  color: red;
+}
+@media screen and (min-width: 100px) and (max-width: 450px) {
+  #heading {
+    width: 70%;
+    font-size: 1.1rem;
+  }
+  h1 {
+    color: rgb(13, 12, 12);
+  }
+}
