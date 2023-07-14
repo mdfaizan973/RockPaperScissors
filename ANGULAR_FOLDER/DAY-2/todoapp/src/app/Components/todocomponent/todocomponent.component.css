@@ -1,0 +1,73 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(145deg, #c94f23, #d8e5dc, #4ad1ce);
+}
+
+.todo-app {
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  width: 300px;
+}
+
+.todo-app h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.todo-app input[type="text"] {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.todo-app button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.todo-app button:hover {
+  background-color: #45a049;
+}
+
+.todo-app ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.todo-app li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+.todo-app button.remove-button {
+  background-color: #f44336;
+  color: #fff;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+.todo-app button.remove-button:hover {
+  background-color: #e53935;
+}
