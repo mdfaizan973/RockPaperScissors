@@ -1,0 +1,112 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-image: url("https://img.freepik.com/premium-vector/vector-horizontal-seamless-illustration-forest-magical-mist_284645-954.jpg");
+  background-position: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  width: 30%;
+  padding: 10px;
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+#game-board {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  border-radius: 25px;
+  background-position: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  border: 1px solid grey;
+  bottom: 40px;
+}
+
+.cell {
+  width: 20px;
+  height: 20px;
+  background-color: #320000;
+  border: 1px solid #e3c9c9;
+  position: absolute;
+}
+
+.food {
+  background-color: #14ba1a;
+  border-radius: 20px;
+}
+
+.snake {
+  background-color: #d12121;
+  border-radius: 20px;
+}
+
+.emoji {
+  font-size: 16px;
+}
+p {
+  font-family: "Courier New";
+  font-size: 18px;
+  color: rgb(255, 255, 255);
+  position: relative;
+  bottom: 40px;
+}
+
+#arrows {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  position: relative;
+  bottom: 40px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  padding: 5px;
+}
+#arrows div {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 38px;
+  color: white;
+
+  font-size: 1.5rem;
+}
+#heading {
+  color: red;
+  font-family: "Courier New", Courier, monospace;
+}
+#hr {
+  width: 100%;
+  height: 1px;
+  background-color: rgb(159, 36, 36);
+  position: relative;
+  bottom: 25px;
+  color: green;
+}
+#show {
+  display: none;
+}
+@media screen and (min-width: 100px) and (max-width: 750px) {
+  #game-container {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  #game-board {
+    width: 100% !important;
+  }
+  #show {
+    display: block;
+  }
+}
