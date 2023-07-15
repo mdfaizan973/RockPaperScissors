@@ -1,41 +1,51 @@
 <!DOCTYPE html>
 <html>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
-  <!-- <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>   -->
   <head>
-    <title>Snake Game</title>
+    <title>Cobra's Revenge</title>
     <style>
       body {
-        background-color: #222;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        height: 100%;
         margin: 0;
         font-family: Arial, sans-serif;
-        background-color: rgb(192, 210, 192);
-      }
-
-      h1 {
-        color: black;
-        text-align: center;
+        background-image: url("https://img.freepik.com/premium-vector/vector-horizontal-seamless-illustration-forest-magical-mist_284645-954.jpg");
+        background-position: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;
+        /*  background-image: linear-gradient(
+          130deg,
+          rgb(11, 34, 52),
+          rgb(18, 44, 58)
+        );  */
       }
 
       #game-container {
         display: flex;
         flex-direction: column;
         align-items: center;
+        border-radius: 20px;
         width: 30%;
-        border: 2px solid grey;
+        padding: 10px;
         text-align: center;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+          rgba(0, 0, 0, 0.22) 0px 15px 12px;
       }
       #game-board {
         position: relative;
         width: 400px;
         height: 400px;
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
-          rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+          rgba(0, 0, 0, 0.22) 0px 15px 12px;
         border-radius: 25px;
+        background-position: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+        border: 1px solid grey;
+        bottom: 40px;
       }
 
       .cell {
@@ -47,12 +57,12 @@
       }
 
       .food {
-        background-color: #d14a21;
+        background-color: #14ba1a;
         border-radius: 20px;
       }
 
       .snake {
-        background-color: #0f7c13;
+        background-color: #d12121;
         border-radius: 20px;
       }
 
@@ -62,25 +72,82 @@
       p {
         font-family: "Courier New";
         font-size: 18px;
-        color: rgb(126, 219, 64);
+        color: rgb(255, 255, 255);
+        position: relative;
+        bottom: 40px;
+      }
+
+      #arrows {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+        position: relative;
+        bottom: 40px;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+          rgba(0, 0, 0, 0.22) 0px 15px 12px;
+        padding: 5px;
+      }
+      #arrows div {
+        cursor: pointer;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+          rgba(0, 0, 0, 0.22) 0px 15px 38px;
+        color: white;
+
+        font-size: 1.5rem;
       }
       #heading {
-        color: rgb(214, 48, 48);
-        font-family: "Courier New";
+        color: red;
+        font-family: "Courier New", Courier, monospace;
+      }
+      #hr {
+        width: 100%;
+        height: 1px;
+        background-color: rgb(159, 36, 36);
+        position: relative;
+        bottom: 25px;
+      }
+      @media screen and (min-width: 100px) and (max-width: 750px) {
+        #game-container {
+          width: 100% !important;
+        }
+        #game-board {
+          width: 100% !important;
+        }
       }
     </style>
   </head>
   <body>
     <div id="game-container">
-      <h1 id="heading">Snake Game</h1>
+      <h1 id="heading">Cobra's Revenge</h1>
+
+      <div id="hr"></div>
       <p>
         Use the arrow keys to control the snake.Try to eat the food and avoid
         colliding with the walls or yourself!
       </p>
+
       <div id="game-board"></div>
+
+      <div id="arrows">
+        <div></div>
+        <div id="up">⬆️</div>
+        <div></div>
+
+        <div id="left">⬅️</div>
+        <!-- --- -->
+        <div id="scores">0</div>
+
+        <div id="right">➡️</div>
+        <div></div>
+
+        <div id="down">⬇️</div>
+
+        <div></div>
+      </div>
     </div>
 
     <script>
+      //  <!-- ---- -->
       document.addEventListener("DOMContentLoaded", function () {
         const gameBoard = document.getElementById("game-board");
         const cellSize = 20;
@@ -137,6 +204,34 @@
         }
 
         // Change snake direction
+        document.getElementById("up").addEventListener("click", () => {
+          if (dy !== 1) {
+            dx = 0;
+            dy = -1;
+            isChangingDirection = true;
+          }
+        });
+        document.getElementById("down").addEventListener("click", () => {
+          if (dy !== -1) {
+            dx = 0;
+            dy = 1;
+            isChangingDirection = true;
+          }
+        });
+        document.getElementById("left").addEventListener("click", () => {
+          if (dx !== 1) {
+            dx = -1;
+            dy = 0;
+            isChangingDirection = true;
+          }
+        });
+        document.getElementById("right").addEventListener("click", () => {
+          if (dx !== -1) {
+            dx = 1;
+            dy = 0;
+            isChangingDirection = true;
+          }
+        });
         function changeDirection(event) {
           if (isChangingDirection) return;
 
@@ -191,13 +286,18 @@
             isCollision()
           ) {
             clearInterval(gameInterval);
-            swal("Game Over", "Please start again!", "error");
+            swal(
+              `Game Over! Your Score is ${score}`,
+              "Please start again!",
+
+              "error"
+            );
             resetGame();
           }
 
           isChangingDirection = false;
+          document.getElementById("scores").innerHTML = score;
         }
-
         // Check for collision with snake body
         function isCollision() {
           const head = snake[0];
