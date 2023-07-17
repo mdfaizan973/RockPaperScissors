@@ -10,10 +10,14 @@ export default function Gram() {
       name,
       cap,
     };
-    setPost([...obj, post]);
+    setPost([...post, obj]);
     console.log(post);
   };
-
+  const handledelete = (id) => {
+    const delt = [...post];
+    delt.splice(id, 1);
+    setPost(delt);
+  };
   return (
     <div>
       <nav>
@@ -58,12 +62,19 @@ export default function Gram() {
           </button>
         </div>
       </div>
-      <div>
+      <div style={{ width: "60%", margin: "auto", textAlign: "center" }}>
         {post.map((ele, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "Center" }}>
+          <div
+            key={i}
+            style={{
+              display: "flex",
+              alignItems: "Center",
+              textAlign: "center",
+            }}
+          >
             <h2>Name:{ele.name}-</h2>
             <h2>Caption:{ele.cap}-</h2>
-            <button>Delete</button>
+            <button onClick={() => handledelete(i)}>Delete</button>
           </div>
         ))}
       </div>
