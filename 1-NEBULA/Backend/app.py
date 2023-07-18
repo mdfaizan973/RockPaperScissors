@@ -1,6 +1,7 @@
 from flask import Flask
 from pymongo import MongoClient
 from flask import Flask, request
+from flask import jsonify
 
 from bson.objectid import ObjectId
 
@@ -12,7 +13,7 @@ db = client["mohsindb"]
 @app.route("/")
 def home():
     return "Welcome to Python Projects"
-
+#-----------------------------------------------------------------
 
 
 class User: # also this will be diffrent according to the project
@@ -39,8 +40,22 @@ def create_user():
     return "User created successfully!"
 
 #-----------------------------------------------------------------
+@app.route("/users", methods=["GET"])
+def get_users():
+    users_collection = db["users"]
+    users = []
+    for user_data in users_collection.find():
+        user = {
+            "id": str(user_data["_id"]),
+            "name": user_data["name"],
+            "email": user_data["email"]
+        }
+        users.append(user)
+    return jsonify(users)
 
 
+
+#-----------------------------------------------------------------
 if __name__ == "__main__":
     app.run()
 
